@@ -1,0 +1,11 @@
+spring:
+  application:
+    name: resume-analyzer
+  servlet:
+    multipart:
+      max-file-size: 5MB
+      max-request-size: 5MB
+
+ai:
+  api-key: ${GEMINI_API_KEY}
+  url: https://generativelanguage.googleapis.com/v1beta/models/gemini-3.5-flash-lite:generateContent

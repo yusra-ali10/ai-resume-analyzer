@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>AI Resume Analyzer</title>
+    <style>
+        * { box-sizing: border-box; }
+        body {
+            margin: 0; min-height: 100vh;
+            font-family: "Segoe UI", Arial, sans-serif;
+            background: linear-gradient(135deg, #4f46e5, #7c3aed);
+            display: flex; align-items: center; justify-content: center;
+            padding: 24px;
+        }
+        .card {
+            background: #fff; width: 100%; max-width: 640px;
+            border-radius: 20px; padding: 36px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.25);
+        }
+        h1 { margin: 0 0 6px; color: #1f2937; font-size: 28px; }
+        .sub { margin: 0 0 24px; color: #6b7280; }
+        label { display: block; font-weight: 600; color: #374151; margin: 18px 0 8px; }
+        input[type=file], textarea {
+            width: 100%; padding: 12px; border: 2px dashed #c7d2fe;
+            border-radius: 12px; background: #f5f3ff; font-size: 14px;
+            font-family: inherit;
+        }
+        textarea { border-style: solid; border-color: #e5e7eb; background: #fff; resize: vertical; }
+        textarea:focus { outline: none; border-color: #7c3aed; }
+        button {
+            width: 100%; margin-top: 24px; padding: 14px;
+            background: linear-gradient(135deg, #4f46e5, #7c3aed);
+            color: #fff; border: 0; border-radius: 12px;
+            font-size: 16px; font-weight: 600; cursor: pointer;
+        }
+        button:disabled { opacity: 0.7; cursor: wait; }
+        .error {
+            background: #fef2f2; color: #b91c1c; border: 1px solid #fecaca;
+            padding: 12px; border-radius: 10px; margin-bottom: 12px; font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <h1>AI Resume Analyzer</h1>
+        <p class="sub">Resume upload karo aur job description se match score paao</p>
+
+        <div class="error" th:if="${error}" th:text="${error}"></div>
+
+        <form method="post" action="/analyze" enctype="multipart/form-data"
+              onsubmit="var b=document.getElementById('btn'); b.disabled=true; b.textContent='Analyzing... please wait';">
+            <label>Resume (PDF)</label>
+            <input type="file" name="resume" accept="application/pdf" required>
+
+            <label>Job Description</label>
+            <textarea name="jobDescription" rows="9"
+                      placeholder="Job description yahan paste karo" required></textarea>
+
+            <button id="btn" type="submit">Analyze Resume</button>
+        </form>
+    </div>
+</body>
+</html>
